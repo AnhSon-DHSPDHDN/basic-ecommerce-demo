@@ -34,6 +34,7 @@ const HomePage: React.FC = () => {
               key={productItem.id}
               productName={productItem.productName}
               productPrice={productItem.productPrice}
+              productThumbnail={productItem.productThumbnail}
             />
           ))}
         </div>
