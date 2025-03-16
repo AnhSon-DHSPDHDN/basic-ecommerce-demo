@@ -3,10 +3,16 @@ import Sidebar from "../../components/Sidebar";
 import SortSection from "../../components/SortSection";
 import ProductCard from "../../components/ProductCard";
 import { useDispatch } from "react-redux";
-import { fetchAllProducts } from "../../redux/features/products/productSlice";
-import { AppDispatch } from "../../redux/store/store";
+import {
+  fetchAllProducts,
+  IProduct,
+} from "../../redux/features/products/productSlice";
+import { AppDispatch, useAppSelector } from "../../redux/store/store";
 
 const HomePage: React.FC = () => {
+  const products: IProduct[] = useAppSelector(
+    (state) => state.productReducer.productList
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -23,10 +29,11 @@ const HomePage: React.FC = () => {
 
         {/* Product List */}
         <div className="grid grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
+          {products.map((productItem) => (
             <ProductCard
-              productName={`Product ${index + 1}`}
-              productPrice={99.99}
+              key={productItem.id}
+              productName={productItem.productName}
+              productPrice={productItem.productPrice}
             />
           ))}
         </div>
