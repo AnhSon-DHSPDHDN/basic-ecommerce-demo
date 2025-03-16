@@ -1,0 +1,158 @@
+{
+  "brands": [
+    {
+      "id": 1,
+      "brandName": "Apple"
+    },
+    {
+      "id": 2,
+      "brandName": "Samsung"
+    },
+    {
+      "id": 3,
+      "brandName": "Xiaomi"
+    },
+    {
+      "id": 4,
+      "brandName": "HONOR"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "productName": "Iphone 16",
+      "brandId": 1,
+      "productPrice": 999.0,
+      "productThumbnail": "https://www.apple.com/newsroom/images/2024/09/apple-introduces-iphone-16-and-iphone-16-plus/article/geo/Apple-iPhone-16-finish-lineup-geo-240909_big.jpg.large.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 2,
+      "productName": "Iphone 16 Pro",
+      "brandId": 1,
+      "productPrice": 1099.0,
+      "productThumbnail": "https://bachlongstore.vn/vnt_upload/product/09_2024/8447141_Apple_iPhone_16_Pro_finish_lineup_240909.png",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 3,
+      "productName": "Iphone 15",
+      "brandId": 1,
+      "productPrice": 899.0,
+      "productThumbnail": "https://genk.mediacdn.vn/139269124445442048/2023/9/12/apple-iphone-15-lineup-color-lineup-230912bigjpglarge-1694545315217-1694545315299487491467-1694546410756-16945464109211179183412.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 4,
+      "productName": "Iphone 15 pro",
+      "brandId": 1,
+      "productPrice": 999.0,
+      "productThumbnail": "https://cdn.tgdd.vn/Products/Images/42/299033/iphone-15-pro-gold-thumbnew-600x600.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 17,
+      "productName": "iPhone 16 Pro Max 256GB",
+      "brandId": 1,
+      "productPrice": 1299.0,
+      "productThumbnail": "https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-16-pro-max.png",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 5,
+      "productName": "Samsung Galaxy A06",
+      "brandId": 2,
+      "productPrice": 199.0,
+      "productThumbnail": "https://cdn.viettablet.com/images/detailed/63/samsung-galaxy-a06-11.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 6,
+      "productName": "Samsung Galaxy A16",
+      "brandId": 2,
+      "productPrice": 299.0,
+      "productThumbnail": "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/d/i/dien-thoai-samsung-galaxy-a16_10__3.png",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 7,
+      "productName": "Samsung Galaxy A25",
+      "brandId": 2,
+      "productPrice": 399.0,
+      "productThumbnail": "https://beta-api.bachlongmobile.com/media/catalog/product/cache/bfb35fd1430014b0a164bf3a48626862/a/2/a25_lime_1_1_cropped.webp",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 8,
+      "productName": "Samsung Galaxy S25 Ultra",
+      "brandId": 2,
+      "productPrice": 1199.0,
+      "productThumbnail": "https://cdn.viettelstore.vn/Images/Product/ProductImage/1173066012.jpeg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 9,
+      "productName": "Xiaomi Redmi note 14 pro",
+      "brandId": 3,
+      "productPrice": 599.0,
+      "productThumbnail": "https://cdn.tgdd.vn/Products/Images/42/320731/xiaomi-redmi-note-14-pro-plus-5g-black-thumbnew-600x600.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 10,
+      "productName": "Xiaomi 14T pro",
+      "brandId": 3,
+      "productPrice": 799.0,
+      "productThumbnail": "https://cdn11.dienmaycholon.vn/filewebdmclnew/DMCL21/Picture/Apro/Apro_product_35323/xiaomi-14t-pro-_main_638.png",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 11,
+      "productName": "Xiaomi 15 5G",
+      "brandId": 3,
+      "productPrice": 999.0,
+      "productThumbnail": "https://viostore.vn/wp-content/uploads/2024/10/41.png",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 12,
+      "productName": "Xiaomi POCO M6 pro",
+      "brandId": 3,
+      "productPrice": 399.0,
+      "productThumbnail": "https://cdn.viettablet.com/images/detailed/58/xiaomi-poco-m6-pro-5g-viettablet.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 13,
+      "productName": "Honor X9c 5G 12GB",
+      "brandId": 4,
+      "productPrice": 499.0,
+      "productThumbnail": "https://cdn.tgdd.vn/Products/Images/42/333479/honor-x9c-tim-thumb-600x600.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 14,
+      "productName": "Honor X7c 8GB",
+      "brandId": 4,
+      "productPrice": 299.0,
+      "productThumbnail": "https://cdn2.fptshop.com.vn/unsafe/honor_x7c_xanh_5_560007b413.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 15,
+      "productName": "Honor X7b 8GB 256GB",
+      "brandId": 4,
+      "productPrice": 199.0,
+      "productThumbnail": "https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/may-tinh-all-in-one-asus-a3402wbak-wpc049w_37_.png",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    {
+      "id": 16,
+      "productName": "Honor Magic V3 5G 12GB 512GB",
+      "brandId": 4,
+      "productPrice": 1399.0,
+      "productThumbnail": "https://cdn.viettablet.com/images/detailed/63/honor_magic_v3-c.jpg",
+      "productDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    }
+  ]
+}
