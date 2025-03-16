@@ -3,10 +3,12 @@ import HomePage from "./pages/HomePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import HeaderComponent from "./components/HeaderComponent";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />

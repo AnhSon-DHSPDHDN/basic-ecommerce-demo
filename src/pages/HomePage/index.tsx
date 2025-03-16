@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import SortSection from "../../components/SortSection";
 import ProductCard from "../../components/ProductCard";
+import { useDispatch } from "react-redux";
+import { fetchAllProducts } from "../../redux/features/products/productSlice";
+import { AppDispatch } from "../../redux/store/store";
 
 const HomePage: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchAllProducts());
+  }, []);
+
   return (
     <div className="container mx-auto p-6 grid grid-cols-4 gap-6">
       <Sidebar />
