@@ -13,6 +13,9 @@ const HomePage: React.FC = () => {
   const products: IProduct[] = useAppSelector(
     (state) => state.productReducer.productList
   );
+  const isLoading: boolean = useAppSelector(
+    (state) => state.productReducer.loading
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -29,14 +32,18 @@ const HomePage: React.FC = () => {
 
         {/* Product List */}
         <div className="grid grid-cols-3 gap-6">
-          {products.map((productItem) => (
-            <ProductCard
-              key={productItem.id}
-              productName={productItem.productName}
-              productPrice={productItem.productPrice}
-              productThumbnail={productItem.productThumbnail}
-            />
-          ))}
+          {isLoading ? (
+            <div>Loading . . . </div>
+          ) : (
+            products.map((productItem) => (
+              <ProductCard
+                key={productItem.id}
+                productName={productItem.productName}
+                productPrice={productItem.productPrice}
+                productThumbnail={productItem.productThumbnail}
+              />
+            ))
+          )}
         </div>
 
         {/* Load More Button */}

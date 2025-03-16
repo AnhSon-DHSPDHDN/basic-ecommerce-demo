@@ -39,10 +39,15 @@ const productSlice = createSlice({
       fetchAllProducts.fulfilled,
       (state: IState, action: PayloadAction<IProduct[]>) => {
         state.productList = action.payload;
+        state.loading = false;
       }
     );
-    builder.addCase(fetchAllProducts.rejected, () => {
+    builder.addCase(fetchAllProducts.rejected, (state: IState) => {
       toast.error("Has error when get products");
+      state.loading = false;
+    });
+    builder.addCase(fetchAllProducts.pending, (state: IState) => {
+      state.loading = true;
     });
   },
 });
