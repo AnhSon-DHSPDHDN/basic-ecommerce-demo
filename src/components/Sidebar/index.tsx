@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { AppDispatch, useAppSelector } from "../../redux/store/store";
+import { useDispatch } from "react-redux";
+import { fetchAllBrands } from "../../redux/features/brands/brandSlice";
 
 const Sidebar: React.FC = () => {
+  const brands = useAppSelector((state) => state.brandReducer.brands);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchAllBrands());
+  }, []);
+
   return (
     <aside className="col-span-1 self-start bg-white shadow-lg p-4 rounded-lg sticky top-0 overflow-y-auto">
       <h2 className="text-xl font-semibold mb-4">Filter by Brand</h2>
