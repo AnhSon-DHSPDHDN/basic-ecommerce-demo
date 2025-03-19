@@ -14,11 +14,18 @@ export interface IProduct {
 interface IState {
   productList: IProduct[];
   loading: boolean;
+  filtersParams: Record<string, string | number | Array<string | number>>;
+  sortOption: string;
 }
 
 const initialState: IState = {
   productList: [],
   loading: false,
+  sortOption: "1",
+  filtersParams: {
+    _sort: "productPrice",
+    _order: "asc",
+  },
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -33,7 +40,19 @@ export const fetchAllProducts = createAsyncThunk(
 const productSlice = createSlice({
   name: "product",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setFiltersParams: (
+      state: IState,
+      action: PayloadAction<
+        Record<string, string | number | Array<string | number>>
+      >
+    ) => {
+      state.filtersParams = action.payload;
+    },
+    setSortOption: (state: IState, action: PayloadAction<string>) => {
+      state.sortOption = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       fetchAllProducts.fulfilled,
@@ -53,3 +72,4 @@ const productSlice = createSlice({
 });
 
 export const productReducer = productSlice.reducer;
+export const { setFiltersParams, setSortOption } = productSlice.actions;
