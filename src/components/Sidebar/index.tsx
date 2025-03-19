@@ -16,7 +16,7 @@ const Sidebar: React.FC = () => {
       <h2 className="text-xl font-semibold mb-4">Filter by Brand</h2>
       <ul className="space-y-2 mb-4">
         {brands.map((brand) => (
-          <li>
+          <li key={brand.id}>
             <input type="checkbox" id={`${brand.id}`} value={brand.id} />{" "}
             <label htmlFor={`${brand.id}`}>{brand.brandName}</label>
           </li>
