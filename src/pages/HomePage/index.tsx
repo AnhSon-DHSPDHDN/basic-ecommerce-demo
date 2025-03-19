@@ -16,11 +16,14 @@ const HomePage: React.FC = () => {
   const isLoading: boolean = useAppSelector(
     (state) => state.productReducer.loading
   );
+  const filtersProductParams = useAppSelector(
+    (state) => state.productReducer.filtersParams
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, []);
+    dispatch(fetchAllProducts(filtersProductParams));
+  }, [filtersProductParams]);
 
   return (
     <div className="container mx-auto p-6 grid grid-cols-4 gap-6">

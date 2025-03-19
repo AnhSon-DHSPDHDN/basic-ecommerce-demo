@@ -37,6 +37,49 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
+export const actChangeSortOption = createAsyncThunk(
+  "product/actChangeSortOption",
+  (payload: string, thunkApi) => {
+    thunkApi.dispatch(setSortOption(payload));
+    let _filtersProduct = {};
+
+    switch (payload) {
+      case "1":
+        _filtersProduct = {
+          _sort: "productPrice",
+          _order: "asc",
+        };
+        break;
+
+      case "2":
+        _filtersProduct = {
+          _sort: "productPrice",
+          _order: "desc",
+        };
+        break;
+
+      case "3":
+        _filtersProduct = {
+          _sort: "productName",
+          _order: "asc",
+        };
+        break;
+
+      case "4":
+        _filtersProduct = {
+          _sort: "productName",
+          _order: "desc",
+        };
+        break;
+
+      default:
+        break;
+    }
+
+    thunkApi.dispatch(setFiltersParams(_filtersProduct));
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: initialState,
@@ -47,7 +90,7 @@ const productSlice = createSlice({
         Record<string, string | number | Array<string | number>>
       >
     ) => {
-      state.filtersParams = action.payload;
+      state.filtersParams = { ...state.filtersParams, ...action.payload };
     },
     setSortOption: (state: IState, action: PayloadAction<string>) => {
       state.sortOption = action.payload;
