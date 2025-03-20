@@ -2,13 +2,18 @@ import React, { ChangeEvent } from "react";
 import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import { actChangeSortOption } from "../../redux/features/products/productSlice";
+import { useSearchParams } from "react-router";
 
 const SortSection: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const sortOption = useAppSelector((state) => state.productReducer.sortOption);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChangeSortBy = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("sortOption", value);
+    setSearchParams(newSearchParams);
     dispatch(actChangeSortOption(value));
   };
 

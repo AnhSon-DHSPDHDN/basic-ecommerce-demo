@@ -18,14 +18,55 @@ interface IState {
   sortOption: string;
 }
 
+const searchParams = new URLSearchParams(window.location.search);
+const initFiltersParams = (): Record<
+  string,
+  string | number | Array<string | number>
+> => {
+  const sortOption = searchParams.get("sortOption") || "1";
+  let filtersParams = {};
+
+  switch (sortOption) {
+    case "1":
+      filtersParams = {
+        _sort: "productPrice",
+        _order: "asc",
+      };
+      break;
+
+    case "2":
+      filtersParams = {
+        _sort: "productPrice",
+        _order: "desc",
+      };
+      break;
+
+    case "3":
+      filtersParams = {
+        _sort: "productName",
+        _order: "asc",
+      };
+      break;
+
+    case "4":
+      filtersParams = {
+        _sort: "productName",
+        _order: "desc",
+      };
+      break;
+
+    default:
+      break;
+  }
+
+  return filtersParams;
+};
+
 const initialState: IState = {
   productList: [],
   loading: false,
-  sortOption: "1",
-  filtersParams: {
-    _sort: "productPrice",
-    _order: "asc",
-  },
+  sortOption: searchParams.get("sortOption") || "1",
+  filtersParams: initFiltersParams(),
 };
 
 export const fetchAllProducts = createAsyncThunk(
