@@ -60,6 +60,12 @@ const initFiltersParams = (): Record<
       break;
   }
 
+  // filter brands
+  const filterBrands = searchParams.get("brandId")
+    ? searchParams.get("brandId")!.split(",")
+    : [];
+
+  filtersParams = { ...filtersParams, brandId: filterBrands };
   return filtersParams;
 };
 
@@ -68,7 +74,9 @@ const initialState: IState = {
   loading: false,
   sortOption: searchParams.get("sortOption") || "1",
   filtersParams: initFiltersParams(),
-  filterByBrands: [],
+  filterByBrands: searchParams.get("brandId")
+    ? searchParams.get("brandId")!.split(",")
+    : [],
 };
 
 export const fetchAllProducts = createAsyncThunk(

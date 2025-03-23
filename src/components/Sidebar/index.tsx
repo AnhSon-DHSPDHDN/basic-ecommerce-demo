@@ -3,8 +3,10 @@ import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import { fetchAllBrands } from "../../redux/features/brands/brandSlice";
 import { actChangeFilterBrand } from "../../redux/features/products/productSlice";
+import { useSearchParams } from "react-router";
 
 const Sidebar: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const brands = useAppSelector((state) => state.brandReducer.brands);
   const filterByBrands = useAppSelector(
     (state) => state.productReducer.filterByBrands
@@ -20,7 +22,11 @@ const Sidebar: React.FC = () => {
       newFilterBrands.add(value);
     }
 
-    dispatch(actChangeFilterBrand(Array.from(newFilterBrands)));
+    const newFilterBrandsArray = Array.from(newFilterBrands);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("brandId", newFilterBrandsArray.join(","));
+    setSearchParams(newSearchParams);
+    dispatch(actChangeFilterBrand(newFilterBrandsArray));
   };
 
   useEffect(() => {
