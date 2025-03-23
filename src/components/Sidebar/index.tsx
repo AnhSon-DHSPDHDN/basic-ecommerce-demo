@@ -1,11 +1,27 @@
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import { fetchAllBrands } from "../../redux/features/brands/brandSlice";
+import { actChangeFilterBrand } from "../../redux/features/products/productSlice";
 
 const Sidebar: React.FC = () => {
   const brands = useAppSelector((state) => state.brandReducer.brands);
+  const filterByBrands = useAppSelector(
+    (state) => state.productReducer.filterByBrands
+  );
   const dispatch = useDispatch<AppDispatch>();
+
+  const handleChangeBrands = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const newFilterBrands = new Set([...filterByBrands]);
+    if (newFilterBrands.has(value)) {
+      newFilterBrands.delete(value);
+    } else {
+      newFilterBrands.add(value);
+    }
+
+    dispatch(actChangeFilterBrand(Array.from(newFilterBrands)));
+  };
 
   useEffect(() => {
     dispatch(fetchAllBrands());
@@ -17,7 +33,13 @@ const Sidebar: React.FC = () => {
       <ul className="space-y-2 mb-4">
         {brands.map((brand) => (
           <li key={brand.id}>
-            <input type="checkbox" id={`${brand.id}`} value={brand.id} />{" "}
+            <input
+              type="checkbox"
+              id={`${brand.id}`}
+              value={brand.id}
+              onChange={handleChangeBrands}
+              checked={filterByBrands.includes(`${brand.id}`)}
+            />{" "}
             <label htmlFor={`${brand.id}`}>{brand.brandName}</label>
           </li>
         ))}

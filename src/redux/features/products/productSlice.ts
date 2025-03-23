@@ -16,6 +16,7 @@ interface IState {
   loading: boolean;
   filtersParams: Record<string, string | number | Array<string | number>>;
   sortOption: string;
+  filterByBrands: Array<string | number>;
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -67,6 +68,7 @@ const initialState: IState = {
   loading: false,
   sortOption: searchParams.get("sortOption") || "1",
   filtersParams: initFiltersParams(),
+  filterByBrands: [],
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -121,6 +123,14 @@ export const actChangeSortOption = createAsyncThunk(
   }
 );
 
+export const actChangeFilterBrand = createAsyncThunk(
+  "product/actChangeFilterBrand",
+  (payload: Array<string | number>, thunkApi) => {
+    thunkApi.dispatch(setFilterByBrands(payload));
+    thunkApi.dispatch(setFiltersParams({ brandId: payload }));
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: initialState,
@@ -135,6 +145,12 @@ const productSlice = createSlice({
     },
     setSortOption: (state: IState, action: PayloadAction<string>) => {
       state.sortOption = action.payload;
+    },
+    setFilterByBrands: (
+      state: IState,
+      action: PayloadAction<Array<string | number>>
+    ) => {
+      state.filterByBrands = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -156,4 +172,5 @@ const productSlice = createSlice({
 });
 
 export const productReducer = productSlice.reducer;
-export const { setFiltersParams, setSortOption } = productSlice.actions;
+export const { setFiltersParams, setSortOption, setFilterByBrands } =
+  productSlice.actions;
