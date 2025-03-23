@@ -37,6 +37,9 @@ const Sidebar: React.FC = () => {
 
   const handleChangeFilterPrice = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("price", value);
+    setSearchParams(newSearchParams);
     dispatch(actChangeFilterPrice(value));
   };
 

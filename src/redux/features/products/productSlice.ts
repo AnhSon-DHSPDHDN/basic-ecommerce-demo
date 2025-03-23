@@ -66,7 +66,54 @@ const initFiltersParams = (): Record<
     ? searchParams.get("brandId")!.split(",")
     : [];
 
-  filtersParams = { ...filtersParams, brandId: filterBrands };
+  // filter price
+  const filterPrice = searchParams.get("price") || "";
+  let filterPriceParams = {};
+  switch (filterPrice) {
+    case "":
+      filterPriceParams = {
+        productPrice_lte: null,
+        productPrice_gte: null,
+      };
+      break;
+
+    case "<200":
+      filterPriceParams = {
+        productPrice_lte: 200,
+        productPrice_gte: null,
+      };
+      break;
+
+    case "200-500":
+      filterPriceParams = {
+        productPrice_lte: 500,
+        productPrice_gte: 200,
+      };
+      break;
+
+    case "500-1000":
+      filterPriceParams = {
+        productPrice_lte: 1000,
+        productPrice_gte: 500,
+      };
+      break;
+
+    case ">1000":
+      filterPriceParams = {
+        productPrice_gte: 1000,
+        productPrice_lte: null,
+      };
+      break;
+
+    default:
+      break;
+  }
+
+  filtersParams = {
+    ...filtersParams,
+    brandId: filterBrands,
+    ...filterPriceParams,
+  };
   return filtersParams;
 };
 
@@ -78,7 +125,7 @@ const initialState: IState = {
   filterByBrands: searchParams.get("brandId")
     ? searchParams.get("brandId")!.split(",")
     : [],
-  filterPrice: "",
+  filterPrice: searchParams.get("price") || "",
 };
 
 export const fetchAllProducts = createAsyncThunk(
