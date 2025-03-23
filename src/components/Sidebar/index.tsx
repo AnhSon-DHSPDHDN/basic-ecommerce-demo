@@ -5,6 +5,7 @@ import { fetchAllBrands } from "../../redux/features/brands/brandSlice";
 import {
   actChangeFilterBrand,
   actChangeFilterPrice,
+  clearAllFilter,
 } from "../../redux/features/products/productSlice";
 import { useSearchParams } from "react-router";
 
@@ -47,6 +48,11 @@ const Sidebar: React.FC = () => {
     dispatch(fetchAllBrands());
   }, []);
 
+  const handleClearFilter = () => {
+    setSearchParams({});
+    dispatch(clearAllFilter());
+  };
+
   return (
     <aside className="col-span-1 self-start bg-white shadow-lg p-4 rounded-lg sticky top-0 overflow-y-auto">
       <h2 className="text-xl font-semibold mb-4">Filter by Brand</h2>
@@ -77,6 +83,15 @@ const Sidebar: React.FC = () => {
         <option value="500-1000">$500 - $1000</option>
         <option value=">1000">&gt; $1000</option>
       </select>
+
+      <div>
+        <button
+          className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-center"
+          onClick={handleClearFilter}
+        >
+          Clear filter
+        </button>
+      </div>
     </aside>
   );
 };

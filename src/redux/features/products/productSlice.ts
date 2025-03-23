@@ -261,6 +261,12 @@ const productSlice = createSlice({
     setFilterPrice: (state: IState, action: PayloadAction<string>) => {
       state.filterPrice = action.payload;
     },
+    clearAllFilter: (state: IState) => {
+      state.sortOption = "1";
+      state.filterByBrands = [];
+      state.filterPrice = "";
+      state.filtersParams = {};
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -286,4 +292,5 @@ export const {
   setSortOption,
   setFilterByBrands,
   setFilterPrice,
+  clearAllFilter,
 } = productSlice.actions;

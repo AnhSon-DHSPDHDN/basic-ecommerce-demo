@@ -4,12 +4,16 @@ import SortSection from "../../components/SortSection";
 import ProductCard from "../../components/ProductCard";
 import { useDispatch } from "react-redux";
 import {
+  clearAllFilter,
   fetchAllProducts,
   IProduct,
 } from "../../redux/features/products/productSlice";
 import { AppDispatch, useAppSelector } from "../../redux/store/store";
+import { useSearchParams } from "react-router";
 
 const HomePage: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setSearchParams] = useSearchParams();
   const products: IProduct[] = useAppSelector(
     (state) => state.productReducer.productList
   );
@@ -20,6 +24,14 @@ const HomePage: React.FC = () => {
     (state) => state.productReducer.filtersParams
   );
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    setSearchParams({});
+
+    return () => {
+      dispatch(clearAllFilter());
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(fetchAllProducts(filtersProductParams));
