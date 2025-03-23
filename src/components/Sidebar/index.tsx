@@ -6,6 +6,7 @@ import {
   actChangeFilterBrand,
   actChangeFilterPrice,
   clearAllFilter,
+  resetPagination,
 } from "../../redux/features/products/productSlice";
 import { useSearchParams } from "react-router";
 
@@ -33,6 +34,7 @@ const Sidebar: React.FC = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("brandId", newFilterBrandsArray.join(","));
     setSearchParams(newSearchParams);
+    dispatch(resetPagination());
     dispatch(actChangeFilterBrand(newFilterBrandsArray));
   };
 
@@ -41,6 +43,7 @@ const Sidebar: React.FC = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("price", value);
     setSearchParams(newSearchParams);
+    dispatch(resetPagination());
     dispatch(actChangeFilterPrice(value));
   };
 
@@ -50,6 +53,7 @@ const Sidebar: React.FC = () => {
 
   const handleClearFilter = () => {
     setSearchParams({});
+    dispatch(resetPagination());
     dispatch(clearAllFilter());
   };
 

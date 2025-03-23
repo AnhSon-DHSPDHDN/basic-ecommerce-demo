@@ -18,6 +18,10 @@ interface IState {
   sortOption: string;
   filterByBrands: Array<string | number>;
   filterPrice: string;
+  pagination: {
+    curPage: number;
+    limit: number;
+  };
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -121,12 +125,25 @@ const initialState: IState = {
   productList: [],
   loading: false,
   sortOption: searchParams.get("sortOption") || "1",
-  filtersParams: initFiltersParams(),
+  filtersParams: { ...initFiltersParams(), _page: 1, _limit: 6 },
   filterByBrands: searchParams.get("brandId")
     ? searchParams.get("brandId")!.split(",")
     : [],
   filterPrice: searchParams.get("price") || "",
+  pagination: {
+    curPage: 1,
+    limit: 6,
+  },
 };
+
+export const loadMoreProducts = createAsyncThunk(
+  "product/loadMoreProducts",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async (params: Record<string, any> | undefined) => {
+    const productList = productApi.getAllProduct(params);
+    return productList;
+  }
+);
 
 export const fetchAllProducts = createAsyncThunk(
   "product/fetchAllProducts",
@@ -265,7 +282,13 @@ const productSlice = createSlice({
       state.sortOption = "1";
       state.filterByBrands = [];
       state.filterPrice = "";
-      state.filtersParams = {};
+      state.filtersParams = {
+        _page: 1,
+        _limit: 6,
+      };
+    },
+    resetPagination: (state: IState) => {
+      state.pagination.curPage = 1;
     },
   },
   extraReducers: (builder) => {
@@ -283,6 +306,16 @@ const productSlice = createSlice({
     builder.addCase(fetchAllProducts.pending, (state: IState) => {
       state.loading = true;
     });
+    builder.addCase(loadMoreProducts.rejected, () => {
+      toast.error("Has error when load more product");
+    });
+    builder.addCase(
+      loadMoreProducts.fulfilled,
+      (state: IState, action: PayloadAction<IProduct[]>) => {
+        state.productList.push(...action.payload);
+        state.pagination.curPage += 1;
+      }
+    );
   },
 });
 
@@ -293,4 +326,5 @@ export const {
   setFilterByBrands,
   setFilterPrice,
   clearAllFilter,
+  resetPagination,
 } = productSlice.actions;

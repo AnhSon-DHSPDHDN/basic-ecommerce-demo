@@ -6,10 +6,13 @@ import { useDispatch } from "react-redux";
 import {
   fetchAllProducts,
   IProduct,
+  loadMoreProducts,
 } from "../../redux/features/products/productSlice";
 import { AppDispatch, useAppSelector } from "../../redux/store/store";
 
 const HomePage: React.FC = () => {
+  const pagination = useAppSelector((state) => state.productReducer.pagination);
+  const maximumProductCount = pagination.limit * pagination.curPage;
   const products: IProduct[] = useAppSelector(
     (state) => state.productReducer.productList
   );
@@ -22,8 +25,26 @@ const HomePage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchAllProducts(filtersProductParams));
+    if (pagination.curPage !== filtersProductParams._page) {
+      dispatch(
+        fetchAllProducts({
+          ...filtersProductParams,
+          _limit: pagination.curPage * pagination.limit,
+        })
+      );
+    } else {
+      dispatch(fetchAllProducts(filtersProductParams));
+    }
   }, [filtersProductParams]);
+
+  const handleLoadMoreProduct = () => {
+    dispatch(
+      loadMoreProducts({
+        ...filtersProductParams,
+        _page: pagination.curPage + 1,
+      })
+    );
+  };
 
   return (
     <div className="container mx-auto p-6 grid grid-cols-4 gap-6">
@@ -50,14 +71,17 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Load More Button */}
-        <div className="mt-6 text-center">
-          <button
-            className="bg-gray-800 text-white py-2 px-6 rounded
+        {products.length >= maximumProductCount && (
+          <div className="mt-6 text-center">
+            <button
+              className="bg-gray-800 text-white py-2 px-6 rounded
           cursor-pointer hover:bg-gray-900 transition-colors duration-300"
-          >
-            Load More
-          </button>
-        </div>
+              onClick={handleLoadMoreProduct}
+            >
+              Load More
+            </button>
+          </div>
+        )}
       </main>
     </div>
   );
