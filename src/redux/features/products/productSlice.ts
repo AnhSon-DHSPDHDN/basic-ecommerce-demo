@@ -17,6 +17,7 @@ interface IState {
   filtersParams: Record<string, string | number | Array<string | number>>;
   sortOption: string;
   filterByBrands: Array<string | number>;
+  filterPrice: string;
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -77,6 +78,7 @@ const initialState: IState = {
   filterByBrands: searchParams.get("brandId")
     ? searchParams.get("brandId")!.split(",")
     : [],
+  filterPrice: "",
 };
 
 export const fetchAllProducts = createAsyncThunk(
@@ -139,6 +141,55 @@ export const actChangeFilterBrand = createAsyncThunk(
   }
 );
 
+export const actChangeFilterPrice = createAsyncThunk(
+  "product/actChangeFilterPrice",
+  (payload: string, thunkApi) => {
+    let filtersParams = {};
+    switch (payload) {
+      case "":
+        filtersParams = {
+          productPrice_lte: null,
+          productPrice_gte: null,
+        };
+        break;
+
+      case "<200":
+        filtersParams = {
+          productPrice_lte: 200,
+          productPrice_gte: null,
+        };
+        break;
+
+      case "200-500":
+        filtersParams = {
+          productPrice_lte: 500,
+          productPrice_gte: 200,
+        };
+        break;
+
+      case "500-1000":
+        filtersParams = {
+          productPrice_lte: 1000,
+          productPrice_gte: 500,
+        };
+        break;
+
+      case ">1000":
+        filtersParams = {
+          productPrice_gte: 1000,
+          productPrice_lte: null,
+        };
+        break;
+
+      default:
+        break;
+    }
+
+    thunkApi.dispatch(setFiltersParams(filtersParams));
+    thunkApi.dispatch(setFilterPrice(payload));
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: initialState,
@@ -160,6 +211,9 @@ const productSlice = createSlice({
     ) => {
       state.filterByBrands = action.payload;
     },
+    setFilterPrice: (state: IState, action: PayloadAction<string>) => {
+      state.filterPrice = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -180,5 +234,9 @@ const productSlice = createSlice({
 });
 
 export const productReducer = productSlice.reducer;
-export const { setFiltersParams, setSortOption, setFilterByBrands } =
-  productSlice.actions;
+export const {
+  setFiltersParams,
+  setSortOption,
+  setFilterByBrands,
+  setFilterPrice,
+} = productSlice.actions;

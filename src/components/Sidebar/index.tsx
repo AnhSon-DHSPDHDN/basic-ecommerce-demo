@@ -2,7 +2,10 @@ import React, { ChangeEvent, useEffect } from "react";
 import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import { fetchAllBrands } from "../../redux/features/brands/brandSlice";
-import { actChangeFilterBrand } from "../../redux/features/products/productSlice";
+import {
+  actChangeFilterBrand,
+  actChangeFilterPrice,
+} from "../../redux/features/products/productSlice";
 import { useSearchParams } from "react-router";
 
 const Sidebar: React.FC = () => {
@@ -10,6 +13,9 @@ const Sidebar: React.FC = () => {
   const brands = useAppSelector((state) => state.brandReducer.brands);
   const filterByBrands = useAppSelector(
     (state) => state.productReducer.filterByBrands
+  );
+  const filterPrice = useAppSelector(
+    (state) => state.productReducer.filterPrice
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,6 +33,11 @@ const Sidebar: React.FC = () => {
     newSearchParams.set("brandId", newFilterBrandsArray.join(","));
     setSearchParams(newSearchParams);
     dispatch(actChangeFilterBrand(newFilterBrandsArray));
+  };
+
+  const handleChangeFilterPrice = (event: ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    dispatch(actChangeFilterPrice(value));
   };
 
   useEffect(() => {
@@ -52,7 +63,11 @@ const Sidebar: React.FC = () => {
       </ul>
 
       <h2 className="text-xl font-semibold mb-2">Price Range</h2>
-      <select className="w-full border p-2 rounded cursor-pointer">
+      <select
+        className="w-full border p-2 rounded cursor-pointer"
+        value={filterPrice}
+        onChange={handleChangeFilterPrice}
+      >
         <option value="">Select Price Range</option>
         <option value="<200">&lt; $200</option>
         <option value="200-500">$200 - $500</option>
