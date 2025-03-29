@@ -2,12 +2,13 @@ import React from "react";
 import { ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store/store";
+import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { clearAllFilter } from "../../redux/features/products/productSlice";
 
 const HeaderComponent: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const carts = useAppSelector((state) => state.cartReducer.cart);
 
   const handleNavigateToCartPage = () => {
     navigate("/cart");
@@ -34,7 +35,7 @@ const HeaderComponent: React.FC = () => {
         <ShoppingCart className="w-7 h-7 cursor-pointer hover:text-gray-300 transition duration-300" />
 
         <span className="absolute -top-2 -right-2 bg-red-500 text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold shadow-md">
-          5
+          {carts.length}
         </span>
       </div>
     </header>

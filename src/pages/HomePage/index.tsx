@@ -60,12 +60,7 @@ const HomePage: React.FC = () => {
             <div>Loading . . . </div>
           ) : (
             products.map((productItem) => (
-              <ProductCard
-                key={productItem.id}
-                productName={productItem.productName}
-                productPrice={productItem.productPrice}
-                productThumbnail={productItem.productThumbnail}
-              />
+              <ProductCard product={productItem} key={productItem.id} />
             ))
           )}
         </div>
