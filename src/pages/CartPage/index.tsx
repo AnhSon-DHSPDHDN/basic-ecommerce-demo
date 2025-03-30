@@ -1,7 +1,8 @@
 import React from "react";
+import { useAppSelector } from "../../redux/store/store";
 
 const CartPage: React.FC = () => {
-  const carts = [...Array(4)];
+  const carts = useAppSelector((state) => state.cartReducer.cart);
 
   return (
     <div className="container mx-auto p-6">
@@ -13,20 +14,23 @@ const CartPage: React.FC = () => {
         ) : (
           <>
             <div className="space-y-4">
-              {carts.map((_, index) => (
+              {carts.map((product) => (
                 <div
-                  key={index}
+                  key={product.id}
                   className="flex justify-between items-center border-b pb-4"
                 >
                   <div>
-                    <h2 className="text-lg font-semibold">Product {index}</h2>
-                    <p className="text-gray-600">$199</p>
+                    <h2 className="text-lg font-semibold">
+                      {product.productName}
+                    </h2>
+                    <p className="text-gray-600">{product.productPrice}</p>
                   </div>
                   <div className="flex items-center">
                     <input
                       type="number"
                       min="1"
                       className="border p-2 w-16 text-center rounded mr-4"
+                      value={product.quantity}
                     />
                     <button className="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition-colors">
                       Remove
