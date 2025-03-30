@@ -5,7 +5,7 @@ interface ICartQuantity {
   quantity: number;
 }
 
-interface ICart extends IProduct, ICartQuantity {}
+export interface ICart extends IProduct, ICartQuantity {}
 
 interface ICartState {
   cart: Array<ICart>;
@@ -36,8 +36,23 @@ const cartSlice = createSlice({
         });
       }
     },
+    updateQuantityToCart: (
+      state: ICartState,
+      action: PayloadAction<{ productCart: ICart; quantity: number }>
+    ) => {
+      state.cart = state.cart.map((product) => {
+        if (product.id === action.payload.productCart.id) {
+          if (action.payload.quantity <= 0) {
+            return { ...product };
+          }
+          return { ...product, quantity: action.payload.quantity };
+        }
+
+        return { ...product };
+      });
+    },
   },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, updateQuantityToCart } = cartSlice.actions;

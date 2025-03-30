@@ -1,14 +1,30 @@
-import React from "react";
-import { useAppSelector } from "../../redux/store/store";
+import React, { ChangeEvent } from "react";
+import { AppDispatch, useAppSelector } from "../../redux/store/store";
+import { useDispatch } from "react-redux";
+import {
+  ICart,
+  updateQuantityToCart,
+} from "../../redux/features/cart/cartSlice";
 
 const CartPage: React.FC = () => {
   const carts = useAppSelector((state) => state.cartReducer.cart);
+  const dispatch = useDispatch<AppDispatch>();
 
   const computedTotalMoney = () => {
     const total = carts.reduce((total, product) => {
       return total + product.quantity * product.productPrice;
     }, 0);
     return total;
+  };
+
+  const handleChangeQuantity = (
+    event: ChangeEvent<HTMLInputElement>,
+    productCart: ICart
+  ) => {
+    const value = Number(event.target.value);
+    dispatch(
+      updateQuantityToCart({ productCart: productCart, quantity: value })
+    );
   };
 
   return (
@@ -38,6 +54,7 @@ const CartPage: React.FC = () => {
                       min="1"
                       className="border p-2 w-16 text-center rounded mr-4"
                       value={product.quantity}
+                      onChange={(e) => handleChangeQuantity(e, product)}
                     />
                     <button className="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition-colors">
                       Remove
