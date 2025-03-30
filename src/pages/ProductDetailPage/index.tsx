@@ -107,7 +107,7 @@ const ProductDetailPage: React.FC = () => {
         </button>
       </div>
 
-      <RelatedProducts />
+      <RelatedProducts relatedProducts={relatedProducts} />
     </div>
   );
 };
