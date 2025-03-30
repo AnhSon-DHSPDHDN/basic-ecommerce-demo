@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../products/productSlice";
+import { toast } from "react-toastify";
 
 interface ICartQuantity {
   quantity: number;
@@ -12,7 +13,7 @@ interface ICartState {
 }
 
 const initialState: ICartState = {
-  cart: [],
+  cart: JSON.parse(localStorage.getItem("cart") || "[]"),
 };
 
 const cartSlice = createSlice({
@@ -35,6 +36,9 @@ const cartSlice = createSlice({
           quantity: action.payload.quantity,
         });
       }
+
+      toast.success("Add product to cart success");
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     updateQuantityToCart: (
       state: ICartState,
@@ -50,6 +54,8 @@ const cartSlice = createSlice({
 
         return { ...product };
       });
+
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     removeProduct: (
       state: ICartState,
@@ -58,6 +64,8 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter(
         (product) => product.id !== action.payload.productId
       );
+
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
   },
 });
