@@ -32,16 +32,21 @@ const ProductDetailPage: React.FC = () => {
   return (
     <div className="container mx-auto p-6 grid grid-cols-2 gap-6">
       {/* Product Image */}
-      <div className="bg-gray-200 h-96 rounded-lg"></div>
+      <div className="bg-gray-200 h-96 rounded-lg">
+        <img
+          className="h-96 w-full object-cover"
+          src={productData?.productThumbnail}
+          alt={productData?.productName}
+        />
+      </div>
 
       {/* Product Info */}
       <div>
-        <h1 className="text-3xl font-bold mb-4">Product Name</h1>
-        <p className="text-gray-600 text-xl mb-4">$199.99</p>
-        <p className="text-gray-700 mb-6">
-          This is a detailed description of the product. It includes all the
-          features and benefits that the product offers.
+        <h1 className="text-3xl font-bold mb-4">{productData?.productName}</h1>
+        <p className="text-gray-600 text-xl mb-4">
+          ${productData?.productPrice}
         </p>
+        <p className="text-gray-700 mb-6">{productData?.productDescription}</p>
 
         {/* Quantity Input */}
         <div className="flex items-center mb-4">
