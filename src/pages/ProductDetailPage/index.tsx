@@ -4,8 +4,13 @@ import { useParams } from "react-router";
 import { IProduct } from "../../redux/features/products/productSlice";
 import { toast } from "react-toastify";
 import { productApi } from "../../apis/product";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store/store";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 
 const ProductDetailPage: React.FC = () => {
+  const [inputQuantity, setInputQuantity] = useState<string>("1");
+  const dispatch = useDispatch<AppDispatch>();
   const [productData, setProductData] = useState<IProduct | undefined>(
     undefined
   );
@@ -18,7 +23,6 @@ const ProductDetailPage: React.FC = () => {
         throw new Error();
       }
       const data = await productApi.getProductById(productId);
-      console.log(data, "asd");
       setProductData(data);
     } catch {
       toast("Get product info fail");
@@ -55,10 +59,30 @@ const ProductDetailPage: React.FC = () => {
             type="number"
             min="1"
             className="border p-2 w-16 text-center rounded"
+            value={inputQuantity}
+            onChange={(e) => {
+              const value = e.target.value;
+              setInputQuantity((prevQuantity) => {
+                if (Number(value) <= 0) {
+                  return prevQuantity;
+                }
+                return value;
+              });
+            }}
           />
         </div>
 
-        <button className="bg-blue-500 text-white py-2 px-6 rounded cursor-pointer hover:bg-blue-600 transition-colors duration-300">
+        <button
+          className="bg-blue-500 text-white py-2 px-6 rounded cursor-pointer hover:bg-blue-600 transition-colors duration-300"
+          onClick={() =>
+            dispatch(
+              addToCart({
+                product: productData as IProduct,
+                quantity: Number(inputQuantity),
+              })
+            )
+          }
+        >
           Add to Cart
         </button>
       </div>
