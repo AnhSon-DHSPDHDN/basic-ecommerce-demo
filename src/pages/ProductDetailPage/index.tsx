@@ -36,7 +36,6 @@ const ProductDetailPage: React.FC = () => {
         brandId: productData?.brandId,
         _limit: 4,
       });
-      console.log(data, "related product");
       setRelatedProduct(data);
     } catch {
       toast.error("Fetch related product fail");

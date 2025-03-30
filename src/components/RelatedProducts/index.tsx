@@ -12,7 +12,7 @@ const RelatedProducts: React.FC<IProps> = ({ relatedProducts }) => {
       <h2 className="text-2xl font-semibold mb-4">Related Products</h2>
       <div className="grid grid-cols-4 gap-6">
         {relatedProducts.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </div>
