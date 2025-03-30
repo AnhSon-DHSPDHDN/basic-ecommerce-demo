@@ -8,4 +8,8 @@ export const productApi = {
     });
     return response.data;
   },
+  getProductById: async (productId: string | number) => {
+    const response = await axiosClient.get(`/products/${productId}`);
+    return response.data;
+  },
 };

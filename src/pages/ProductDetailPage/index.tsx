@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RelatedProducts from "../../components/RelatedProducts";
+import { useParams } from "react-router";
+import { IProduct } from "../../redux/features/products/productSlice";
+import { toast } from "react-toastify";
+import { productApi } from "../../apis/product";
 
 const ProductDetailPage: React.FC = () => {
+  const [productData, setProductData] = useState<IProduct | undefined>(
+    undefined
+  );
+  const params = useParams();
+  const productId = params.id;
+
+  const handleFetchProductInfo = async () => {
+    try {
+      if (!productId) {
+        throw new Error();
+      }
+      const data = await productApi.getProductById(productId);
+      console.log(data, "asd");
+      setProductData(data);
+    } catch {
+      toast("Get product info fail");
+    }
+  };
+
+  useEffect(() => {
+    handleFetchProductInfo();
+  }, [productId]);
+
   return (
     <div className="container mx-auto p-6 grid grid-cols-2 gap-6">
       {/* Product Image */}
