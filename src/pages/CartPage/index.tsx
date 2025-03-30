@@ -4,6 +4,13 @@ import { useAppSelector } from "../../redux/store/store";
 const CartPage: React.FC = () => {
   const carts = useAppSelector((state) => state.cartReducer.cart);
 
+  const computedTotalMoney = () => {
+    const total = carts.reduce((total, product) => {
+      return total + product.quantity * product.productPrice;
+    }, 0);
+    return total;
+  };
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
@@ -41,7 +48,9 @@ const CartPage: React.FC = () => {
             </div>
 
             <div className="mt-6 text-right">
-              <h2 className="text-xl font-semibold">Total: $1000</h2>
+              <h2 className="text-xl font-semibold">
+                Total: ${computedTotalMoney()}
+              </h2>
               <button className="mt-4 bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition-colors">
                 Checkout
               </button>
