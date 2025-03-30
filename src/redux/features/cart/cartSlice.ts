@@ -51,8 +51,17 @@ const cartSlice = createSlice({
         return { ...product };
       });
     },
+    removeProduct: (
+      state: ICartState,
+      action: PayloadAction<{ productId: string | number }>
+    ) => {
+      state.cart = state.cart.filter(
+        (product) => product.id !== action.payload.productId
+      );
+    },
   },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addToCart, updateQuantityToCart } = cartSlice.actions;
+export const { addToCart, updateQuantityToCart, removeProduct } =
+  cartSlice.actions;

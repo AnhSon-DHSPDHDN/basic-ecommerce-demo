@@ -3,6 +3,7 @@ import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import {
   ICart,
+  removeProduct,
   updateQuantityToCart,
 } from "../../redux/features/cart/cartSlice";
 
@@ -56,7 +57,12 @@ const CartPage: React.FC = () => {
                       value={product.quantity}
                       onChange={(e) => handleChangeQuantity(e, product)}
                     />
-                    <button className="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition-colors">
+                    <button
+                      className="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 transition-colors"
+                      onClick={() =>
+                        dispatch(removeProduct({ productId: product.id }))
+                      }
+                    >
                       Remove
                     </button>
                   </div>
