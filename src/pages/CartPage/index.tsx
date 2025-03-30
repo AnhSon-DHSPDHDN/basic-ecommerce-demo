@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 import { AppDispatch, useAppSelector } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import {
+  checkout,
   ICart,
   removeProduct,
   updateQuantityToCart,
@@ -74,7 +75,10 @@ const CartPage: React.FC = () => {
               <h2 className="text-xl font-semibold">
                 Total: ${computedTotalMoney()}
               </h2>
-              <button className="mt-4 bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition-colors">
+              <button
+                className="mt-4 bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition-colors"
+                onClick={() => dispatch(checkout())}
+              >
                 Checkout
               </button>
             </div>
