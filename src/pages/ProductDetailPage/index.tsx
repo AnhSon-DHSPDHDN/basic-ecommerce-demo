@@ -9,6 +9,7 @@ import { AppDispatch } from "../../redux/store/store";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 
 const ProductDetailPage: React.FC = () => {
+  const [relatedProducts, setRelatedProduct] = useState<IProduct[]>([]);
   const [inputQuantity, setInputQuantity] = useState<string>("1");
   const dispatch = useDispatch<AppDispatch>();
   const [productData, setProductData] = useState<IProduct | undefined>(
@@ -29,9 +30,28 @@ const ProductDetailPage: React.FC = () => {
     }
   };
 
+  const handleFetchRelatedProduct = async () => {
+    try {
+      const data = await productApi.getAllProduct({
+        brandId: productData?.brandId,
+        _limit: 4,
+      });
+      console.log(data, "related product");
+      setRelatedProduct(data);
+    } catch {
+      toast.error("Fetch related product fail");
+    }
+  };
+
   useEffect(() => {
     handleFetchProductInfo();
   }, [productId]);
+
+  useEffect(() => {
+    if (productData) {
+      handleFetchRelatedProduct();
+    }
+  }, [productData]);
 
   return (
     <div className="container mx-auto p-6 grid grid-cols-2 gap-6">
