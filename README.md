@@ -53,6 +53,7 @@ export default tseslint.config({
 })
 ```
 # Setup
-npm install
-npm run dev
-npm run server
+
+- npm install
+- npm run dev
+- npm run server
